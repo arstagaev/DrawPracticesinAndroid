@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#000000"
     tools:context=".MainActivity">
 
     <com.revolve44.drawingpractice.CircleView
@@ -16,12 +17,10 @@
 
 
 
-    <com.revolve44.drawingpractice.PathView
-        android:id="@+id/path"
+    <com.revolve44.drawingpractice.LetItSnow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
-    </com.revolve44.drawingpractice.PathView>
+    </com.revolve44.drawingpractice.LetItSnow>
 
 </LinearLayout>

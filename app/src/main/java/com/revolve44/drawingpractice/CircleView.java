@@ -13,6 +13,7 @@ public class CircleView extends View
 
     private int circleColor = DEFAULT_CIRCLE_COLOR;
     private Paint paint;
+    ///////////////////
 
     public CircleView(Context context)
     {
@@ -63,6 +64,7 @@ public class CircleView extends View
         int cy = pt + (usableHeight / 2);
 
         paint.setColor(circleColor);
-        canvas.drawCircle(cx, cy, radius, paint);
+
+        canvas.drawCircle(1, 1, radius, paint);
     }
 }
