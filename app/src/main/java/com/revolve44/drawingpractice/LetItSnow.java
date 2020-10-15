@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -32,6 +33,7 @@ public class LetItSnow extends View {
 
     public int width;
     public int height;
+    ArrayList<Float> differentSizes = new ArrayList<>();
 
 
     HashMap<Float, Float> hashMap = new HashMap<>();
@@ -65,7 +67,8 @@ public class LetItSnow extends View {
         for (int o = 0; o<numOfFlakes; o++){
             //Also init all the drops
 //            hashMap.put(rand.nextInt((int) (400f- 1f)) + 1f,-rand.nextInt((int) (400f- 1f)) + 1f );
-            hashMap.put((float) rand.nextFloat()*width,-rand.nextFloat()*400);
+            hashMap.put((float) rand.nextFloat()*width,-rand.nextFloat()*height);
+            differentSizes.add(rand.nextFloat()*2);
 
         }
         System.out.println("hashmap "+hashMap.toString()+" Whithg "+width);
@@ -88,11 +91,13 @@ public class LetItSnow extends View {
         return circleColor;
     }
 
+    int controlForArray = 0;
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
-
+        controlForArray = 0;
 
 
         paint.setColor(Color.BLACK);
@@ -105,13 +110,14 @@ public class LetItSnow extends View {
 
             Float key = e.getKey();
             Float value = e.getValue();
-            paint.setColor(circleColor);
+            paint.setColor(Color.WHITE);
 
-            canvas.drawCircle(key,value,10,paint);
+            canvas.drawCircle(key,value,differentSizes.get(controlForArray),paint);
 
             e.setValue(value+rand.nextInt((int) (2f- 1f)) + 1f );
+            controlForArray++;
 
-            if (value>400f){ e.setValue(1f); }
+            if (value>height){ e.setValue(1f); }
         }
 
         try
