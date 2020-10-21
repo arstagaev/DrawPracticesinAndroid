@@ -1,5 +1,6 @@
 package com.revolve44.drawingpractice;
 
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class LetItSnow extends View {
+public class Fireworks extends View {
     private static final int DEFAULT_CIRCLE_COLOR = Color.RED;
 
     private int circleColor = DEFAULT_CIRCLE_COLOR;
@@ -40,11 +41,11 @@ public class LetItSnow extends View {
     Random rand = new Random();
 
 
-    public LetItSnow(Context context) {
+    public Fireworks(Context context) {
         super(context);
     }
 
-    public LetItSnow(Context context, @Nullable AttributeSet attrs) {
+    public Fireworks(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
@@ -91,6 +92,9 @@ public class LetItSnow extends View {
     }
 
     int controlForArray = 0;
+    int angleMove = 0;
+    int orbitRadius = 50;
+    double orbitSpeed = Math.PI / 16;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void onDraw(Canvas canvas)
@@ -118,9 +122,15 @@ public class LetItSnow extends View {
             if (value>height){ e.setValue(1f); }
         }
 
+        double radian = orbitSpeed * angleMove;
+        paint.setColor(Color.RED);
+        canvas.drawCircle((float) (150+orbitRadius*Math.sin(radian)), (float) (150+orbitRadius*Math.cos(radian)),20,paint);
+        angleMove++;
+
         try
         { Thread.sleep(FALLINGSPEED); }
         catch (Exception e) { e.printStackTrace(); }
         invalidate();
     }
 }
+

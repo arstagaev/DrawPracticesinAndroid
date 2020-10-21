@@ -5,32 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#000000"
+    android:background="#832121"
     tools:context=".MainActivity">
 
-    <com.revolve44.drawingpractice.CircleView
+<!--    <com.revolve44.drawingpractice.CircleView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_weight="1">-->
+
+<!--    </com.revolve44.drawingpractice.CircleView>-->
+
+    <com.revolve44.drawingpractice.StarWars
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="200dp">
 
-    </com.revolve44.drawingpractice.CircleView>
+    </com.revolve44.drawingpractice.StarWars>
 
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="149dp"
+        android:layout_marginLeft="149dp"
+        android:layout_marginTop="288dp" />
 
-
-    <com.revolve44.drawingpractice.LetItSnow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-    </com.revolve44.drawingpractice.LetItSnow>
-
-    <TextView
-        android:layout_marginTop="100dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:text="Telegram">
-
-    </TextView>
 
 </RelativeLayout>
