@@ -22,6 +22,7 @@ public class WeatherAnim extends View {
     private static final int DEFAULT_CIRCLE_COLOR = Color.RED;
 
     private int circleColor = DEFAULT_CIRCLE_COLOR;
+    Space space = new Space();
     Snow snow = new Snow();
 
     private Paint paint;
@@ -31,7 +32,7 @@ public class WeatherAnim extends View {
     public int NUMofELEMENTS = 400;
     private int DELAY_FPS = 2;
     private int SPEED = 4;
-    private int REFRESHING = 300;
+    private int REFRESHING = 100;
     private int halfwidth, halfheight = 0;
 
 
@@ -43,9 +44,8 @@ public class WeatherAnim extends View {
     DisplayMetrics displaymetrics = new DisplayMetrics();
     public int width =  displaymetrics.widthPixels;
     public int height = displaymetrics.heightPixels;
-    ArrayList<Float> differentSizes = new ArrayList<>();
 
-    HashMap<Float, Float> hashMap = new HashMap<>();
+    public int typeOfweather = 1;
     Random rand = new Random();
     boolean ClearAll = false;
 
@@ -66,6 +66,13 @@ public class WeatherAnim extends View {
 
         width = xNew;
         height = yNew;
+
+        if (typeOfweather == 0){
+            space.init(NUMofELEMENTS,SPEED,height,width);
+        }else{
+            snow.init(NUMofELEMENTS,0,height,width);
+        }
+
         Log.d("width: "," is "+width+" ][ "+height);
     }
 
@@ -92,27 +99,23 @@ public class WeatherAnim extends View {
 
         ClearAll = true;
         paint.reset();
-        init();
+        //init();
     }
 
-    public void init() {
-        Log.d("Width", width+"");
-        Log.d("Start View", width+" " + height+" |[speed= "+SPEED+ " Num of Elements: "+NUMofELEMENTS);
-        snow.init(NUMofELEMENTS,SPEED);
-
-//        for (int o = 0; o< NUMofELEMENTS; o++){
-//            radiansArray.add(Math.toRadians(rand.nextDouble()*360)); //***
-//            speedArray.add(rand.nextDouble()*SPEED);
-//            orbitArrayX.add(rand.nextDouble()*100);
-//
-//        }
-        System.out.println("hashmap "+hashMap.toString()+" Whithg "+width);
+    public void init(int TypeofWeather) {
+         typeOfweather = TypeofWeather;
+         onSizeChanged(width,height,width,height);
         paint = new Paint();
         paint.setAntiAlias(true);
+//        width =  displaymetrics.widthPixels;
+//        height = displaymetrics.heightPixels;
+        Log.d("Width", width+"");
+        Log.d("Start View", width+" " + height+" |[speed= "+SPEED+ " Num of Elements: "+NUMofELEMENTS);
+
 
     }
 
-    int timeInterval = 0;
+    //int timeInterval = 0;
     double x = 0;
     double y = 0;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -123,22 +126,38 @@ public class WeatherAnim extends View {
 
         paint.setColor(Color.BLACK);
         canvas.drawRect(0,0,width,height,paint);
-        Log.d("Width", "OnDraw "+width+" and H= "+height);
+        //Log.d("Width", "OnDraw "+width+" and H= "+height);
         halfheight = height/2;
         halfwidth = width/2;
         //Log.i("input data", )
 
 
         for (int i = 0; i<NUMofELEMENTS; i++){
-
             paint.setColor(Color.WHITE);
-            x = snow.xCoord(i);
-            y = snow.yCoord(i);
 
-            canvas.drawOval((float) (halfwidth+x), (float) (halfheight+y),
-                    (float) (halfwidth+sizeoval+x), (float) (halfheight+sizeoval+y),paint);
+            switch(typeOfweather) {
+                case 0:
+                    x = space.xCoord(i);
+                    y = space.yCoord(i);
+                    break;
+                case 1:
+                    x = snow.xCoord(i);
+                    y = snow.yCoord(i);
+                    break;
+            }
 
-            snow.JustInTimeUpdate(i,REFRESHING);
+            switch(typeOfweather) {
+                case 0:
+                    canvas.drawOval((float) (halfwidth+x), (float) (halfheight+y),
+                            (float) (halfwidth+sizeoval+x), (float) (halfheight+sizeoval+y),paint);
+                    space.JustInTimeUpdate(i,REFRESHING);
+                    break;
+
+                case 1:
+                    canvas.drawCircle((float) x , (float) y ,5,paint);
+                    snow.moveAndCheck(i);
+                    break;
+            }
 
 //            orbitArrayX.set(i,orbitArrayX.get(i)+1);
 //            if (orbitArrayX.get(i)>REFRESHING){
@@ -147,7 +166,7 @@ public class WeatherAnim extends View {
 //                }
 //            }
         }
-        timeInterval++;
+        //timeInterval++;
 
 
 

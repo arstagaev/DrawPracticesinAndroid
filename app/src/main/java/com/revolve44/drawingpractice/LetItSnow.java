@@ -8,16 +8,16 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.revolve44.drawingpractice.animateLib.Snow;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class LetItSnow extends View {
@@ -28,7 +28,7 @@ public class LetItSnow extends View {
 
     private int sizeoval = 2;
 
-    private int numOfFlakes = 400;
+    private int NUMofELEMENTS = 400;
     private int FALLINGSPEED = 2;
 
     public int width;
@@ -39,6 +39,10 @@ public class LetItSnow extends View {
     HashMap<Float, Float> hashMap = new HashMap<>();
     Random rand = new Random();
 
+    ArrayList<Float> xSnowFlake = new ArrayList<>();
+    ArrayList<Float> ySnowFlake = new ArrayList<>();
+    ArrayList<Float> SPEED = new ArrayList<>();
+    Snow snow = new Snow();
 
     public LetItSnow(Context context) {
         super(context);
@@ -54,6 +58,14 @@ public class LetItSnow extends View {
 //    }
 
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        width = w;
+        height = h;
+        snow.init(NUMofELEMENTS,0,h,w);
+    }
+
     private void init(Context context, AttributeSet attrs)
     {
         DisplayMetrics displaymetrics = new DisplayMetrics();
@@ -64,14 +76,7 @@ public class LetItSnow extends View {
         height = displaymetrics.heightPixels;
         width = displaymetrics.widthPixels;
 
-        for (int o = 0; o<numOfFlakes; o++){
-            //Also init all the drops
-//            hashMap.put(rand.nextInt((int) (400f- 1f)) + 1f,-rand.nextInt((int) (400f- 1f)) + 1f );
-            hashMap.put((float) rand.nextFloat()*width,-rand.nextFloat()*height);
-            differentSizes.add(rand.nextFloat()*2);
-
-        }
-        System.out.println("hashmap "+hashMap.toString()+" Whithg "+width);
+        System.out.println("hashmap "+xSnowFlake.toString()+" Whithg "+width);
         paint = new Paint();
         paint.setAntiAlias(true);
 
@@ -90,33 +95,24 @@ public class LetItSnow extends View {
         return circleColor;
     }
 
-    int controlForArray = 0;
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
-        controlForArray = 0;
 
-
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.BLUE);
         canvas.drawRect(0,0,width,height,paint);
         Log.d("Width", width+"");
 
-        for (HashMap.Entry<Float, Float> e : hashMap.entrySet()) {
-            //sizeoval = rand.nextInt(4);
-
-            Float key = e.getKey();
-            Float value = e.getValue();
+        for (int i = 0; i<NUMofELEMENTS; i++){
             paint.setColor(Color.WHITE);
 
-            canvas.drawCircle(key,value,differentSizes.get(controlForArray),paint);
-
-            e.setValue(value+rand.nextInt((int) (2f- 1f)) + 1f );
-            controlForArray++;
-
-            if (value>height){ e.setValue(1f); }
+            canvas.drawCircle((float) snow.xCoord(i), (float) snow.yCoord(i),5,paint);
+            snow.moveAndCheck(i);
         }
+
 
         try
         { Thread.sleep(FALLINGSPEED); }

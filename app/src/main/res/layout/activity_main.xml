@@ -18,9 +18,18 @@
     <com.revolve44.drawingpractice.animateLib.WeatherAnim
         android:id="@+id/wa"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="200dp">
 
     </com.revolve44.drawingpractice.animateLib.WeatherAnim>
+
+    <com.revolve44.drawingpractice.LetItSnow
+        android:id="@+id/ls"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/wa"
+       >
+
+    </com.revolve44.drawingpractice.LetItSnow>
 
 <!--    <com.revolve44.drawingpractice.StarWars-->
 <!--        android:id="@+id/starwars"-->
@@ -51,6 +60,19 @@
         android:layout_marginStart="150dp"
         android:layout_marginLeft="150dp"
         android:layout_marginTop="380dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="142dp"
+        android:layout_marginRight="142dp"
+        android:layout_marginBottom="196dp"
+        android:onClick="switchType"
+        android:text="next type" />
 
 
 </RelativeLayout>

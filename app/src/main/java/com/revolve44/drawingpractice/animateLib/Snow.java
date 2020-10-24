@@ -3,21 +3,27 @@ package com.revolve44.drawingpractice.animateLib;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Snow implements WeatherPrinciple {
+public class Snow  implements WeatherPrinciple{
 
     Random rand = new Random();
 
-    ArrayList<Double> radiansArray = new ArrayList<>();
-    ArrayList<Double> speedArray = new ArrayList<>();
-    ArrayList<Double> orbitArrayX = new ArrayList<>();
+    ArrayList<Float> xSnowFlake = new ArrayList<>();
+    ArrayList<Float> ySnowFlake = new ArrayList<>();
+    ArrayList<Float> speedFlakes = new ArrayList<>();
 
+    int height=0;
+    int width=0;
 
     @Override
-    public void init(int NUMofELEMENTS, int SPEED) {
+    public void init(int NUMofELEMENTS, int SPEED,int heightY, int widthX) {
+        height = heightY;
+        width = widthX;
+
         for (int o = 0; o< NUMofELEMENTS; o++){
-            radiansArray.add(Math.toRadians(rand.nextDouble()*360)); //***
-            speedArray.add(rand.nextDouble()*SPEED);
-            orbitArrayX.add(rand.nextDouble()*100);
+            //Also init all the drops
+            xSnowFlake.add(rand.nextFloat()*widthX);
+            ySnowFlake.add(-rand.nextFloat()*heightY);
+            speedFlakes.add(rand.nextFloat()*2);
 
         }
 
@@ -26,32 +32,29 @@ public class Snow implements WeatherPrinciple {
 
     double x = 0;
     double y = 0;
+
     @Override
     public double xCoord(int i) {
-        x = (orbitArrayX.get(i) * (speedArray.get(i)) * Math.cos(radiansArray.get(i)));
-      //  y = orbitArrayX.get(i) * (speedArray.get(i)) * Math.sin(radiansArray.get(i));
-
+        x = xSnowFlake.get(i);
         return x;
-
     }
 
     @Override
     public double yCoord(int i) {
-       // x = (orbitArrayX.get(i) * (speedArray.get(i)) * Math.cos(radiansArray.get(i)));
-        y = orbitArrayX.get(i) * (speedArray.get(i)) * Math.sin(radiansArray.get(i));
-
-        //JustInTimeUpdate(i);
-
+        y = ySnowFlake.get(i);
         return y;
-
     }
 
-    public void JustInTimeUpdate(int i, int REFRESHING){
-        orbitArrayX.set(i,orbitArrayX.get(i)+1);
-        if (orbitArrayX.get(i)>REFRESHING){
-            if (i!=0){
-                orbitArrayX.set(i,rand.nextDouble()*REFRESHING);
-            }
+    public void moveAndCheck(int i){
+        ySnowFlake.set(i,ySnowFlake.get(i)+speedFlakes.get(i));
+
+        if (ySnowFlake.get(i)>height){
+            //ySnowFlake.set(i,rand.nextFloat()*height);
+            xSnowFlake.set(i,rand.nextFloat()*width);
+            ySnowFlake.set(i,1f);
         }
     }
+
+
+
 }

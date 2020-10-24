@@ -3,6 +3,7 @@ package com.revolve44.drawingpractice;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SeekBar;
 
 import com.revolve44.drawingpractice.animateLib.WeatherAnim;
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     StarWars starWars;
     WeatherAnim weatherAnim;
+    LetItSnow letItSnow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +23,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         setContentView(R.layout.activity_main);
         numSeek = (SeekBar) findViewById(R.id.num);
         speedSeek = (SeekBar) findViewById(R.id.speed);
+
         weatherAnim = findViewById(R.id.wa);
-        weatherAnim.init();
+        weatherAnim.init(1);
+
+        letItSnow  = findViewById(R.id.ls);
+
 //        PathView path_view = (PathView) findViewById(R.id.path);
 //        path_view.init();
 //        starWars = findViewById(R.id.starwars);
@@ -66,5 +72,18 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         }
         System.out.println("lox ");
         System.out.println("lox " + seekBar.getProgress());
+    }
+    int a = 0;
+    public void switchType(View view) {
+        if (a<=1){
+            weatherAnim.init(a);
+            a++;
+        }else {
+            a=0;
+        }
+
+
+
+
     }
 }
