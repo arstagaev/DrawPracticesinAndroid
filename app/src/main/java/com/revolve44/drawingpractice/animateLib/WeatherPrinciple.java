@@ -7,4 +7,8 @@ public interface WeatherPrinciple {
      double xCoord(int i);
 
      double yCoord(int i);
+
+     void onSwitchType(int TypeOfWeather);
+
+     void onClearArrays();
 }

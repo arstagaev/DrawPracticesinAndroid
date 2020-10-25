@@ -5,19 +5,19 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Snow  implements WeatherPrinciple{
+public class Rain implements WeatherPrinciple {
 
     Random rand = new Random();
 
-    ArrayList<Float> xSnowFlake = new ArrayList<>();
-    ArrayList<Float> ySnowFlake = new ArrayList<>();
-    ArrayList<Float> speedFlakes = new ArrayList<>();
+    ArrayList<Float> xDrop = new ArrayList<>();
+    ArrayList<Float> yDrop = new ArrayList<>();
+    ArrayList<Float> speedDrops = new ArrayList<>();
 
     int height=0;
     int width=0;
 
     @Override
-    public void init(int NUMofELEMENTS, int SPEED,int heightY, int widthX) {
+    public void init(int NUMofELEMENTS, int SPEED, int heightY, int widthX) {
         height = heightY;
         width = widthX;
 
@@ -25,13 +25,12 @@ public class Snow  implements WeatherPrinciple{
 
         for (int o = 0; o< NUMofELEMENTS; o++){
             //Also init all the drops
-            xSnowFlake.add(rand.nextFloat()*widthX);
-            ySnowFlake.add(-rand.nextFloat()*heightY);
-            speedFlakes.add(rand.nextFloat()*6);
+            xDrop.add(rand.nextFloat()*widthX);
+            yDrop.add(-rand.nextFloat()*heightY);
+            speedDrops.add(1f*SPEED);
 
         }
-        Log.i("snow array", "xSnow "+xSnowFlake.toString());
-
+        Log.i("snow array", "xSnow "+ xDrop.toString());
 
     }
 
@@ -40,13 +39,13 @@ public class Snow  implements WeatherPrinciple{
 
     @Override
     public double xCoord(int i) {
-        x = xSnowFlake.get(i);
+        x = xDrop.get(i);
         return x;
     }
 
     @Override
     public double yCoord(int i) {
-        y = ySnowFlake.get(i);
+        y = yDrop.get(i);
         return y;
     }
 
@@ -57,19 +56,19 @@ public class Snow  implements WeatherPrinciple{
 
 
     public void moveAndCheck(int i){
-        ySnowFlake.set(i,ySnowFlake.get(i)+speedFlakes.get(i));
+        yDrop.set(i, yDrop.get(i)+ speedDrops.get(i));
 
-        if (ySnowFlake.get(i)>height){
+        if (yDrop.get(i)>height){
             //ySnowFlake.set(i,rand.nextFloat()*height);
-            xSnowFlake.set(i,rand.nextFloat()*width);
-            ySnowFlake.set(i,1f);
+            xDrop.set(i,rand.nextFloat()*width);
+            yDrop.set(i,1f);
         }
     }
 
     @Override
     public void onClearArrays() {
-        xSnowFlake.clear();
-        ySnowFlake.clear();
-        speedFlakes.clear();
+        xDrop.clear();
+        yDrop.clear();
+        speedDrops.clear();
     }
 }

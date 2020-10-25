@@ -39,7 +39,6 @@ public class Space implements WeatherPrinciple {
         x = (orbitArrayX.get(i) * (speedArray.get(i)) * Math.cos(radiansArray.get(i)));
 
         return x;
-
     }
 
     @Override
@@ -49,17 +48,12 @@ public class Space implements WeatherPrinciple {
 
 
         return y;
-
     }
 
-//    public void JustInTimeUpdate(int i, int height, int width){
-//         orbitArrayX.set(i,orbitArrayX.get(i)+1);
-////        if (orbitArrayX.get(i)>REFRESHING){
-////            if (i!=0){
-////                orbitArrayX.set(i,rand.nextDouble()*REFRESHING);
-////            }
-////        }
-//    }
+    @Override
+    public void onSwitchType(int TypeOfWeather) {
+
+    }
 
     public void JustInTimeUpdate(int i, int REFRESHING){
         orbitArrayX.set(i,orbitArrayX.get(i)+1);
@@ -68,5 +62,12 @@ public class Space implements WeatherPrinciple {
                 orbitArrayX.set(i,rand.nextDouble()*REFRESHING);
             }
         }
+    }
+
+    @Override
+    public void onClearArrays() {
+        radiansArray.clear();
+        speedArray.clear();
+        orbitArrayX.clear();
     }
 }

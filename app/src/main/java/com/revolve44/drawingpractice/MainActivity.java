@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         weatherAnim = findViewById(R.id.wa);
         weatherAnim.init(1);
 
+
         letItSnow  = findViewById(R.id.ls);
 
 //        PathView path_view = (PathView) findViewById(R.id.path);
@@ -75,15 +76,11 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     }
     int a = 0;
     public void switchType(View view) {
-        if (a<=1){
+        if (a<=2){
             weatherAnim.init(a);
             a++;
         }else {
             a=0;
         }
-
-
-
-
     }
 }
